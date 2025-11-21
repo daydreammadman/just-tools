@@ -11,7 +11,7 @@ import {
   Code2, // 建议用 Code2，比 Code 好看一点
   Wrench, 
   Image, // 新增
-  Calculator // 备选：如果有计算类
+
 } from 'lucide-react';
 // 导入工具配置
 import { toolConfig as jsonFormatterConfig } from './json-formatter/config';
@@ -19,6 +19,7 @@ import { toolConfig as IpLookupConfig } from './ip-lookup/config';
 import { toolConfig as wordCounterConfig } from './word-counter/config';
 import { toolConfig as imageConverterConfig } from './image-converter/config';
 import { toolConfig as imageAnalyzerConfig } from './image-analyzer/config';
+import { toolConfig as cryptoToolConfig } from './crypto-tool/config';
 /**
  * 工具注册表
  * 新增工具时在此数组中添加工具配置
@@ -29,6 +30,7 @@ export const allTools: ToolConfig[] = [
   wordCounterConfig,
   imageConverterConfig,
   imageAnalyzerConfig,
+  cryptoToolConfig,
 ];
 
 /**
