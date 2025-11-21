@@ -1,4 +1,5 @@
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import type { FC } from 'react';
 import {
   Card,
   CardContent,
@@ -10,8 +11,8 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { countWords, estimateReadingTime, WordCountResult } from './utils';
-
+import { countWords, estimateReadingTime } from './utils';
+import type { WordCountResult } from './utils';
 export const WordCounter: FC = () => {
   const [input, setInput] = useState('');
   const [stats, setStats] = useState<WordCountResult>({

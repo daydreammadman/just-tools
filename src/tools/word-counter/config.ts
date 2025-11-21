@@ -1,4 +1,4 @@
-import { ToolConfig } from '@/tools/types';
+import type { ToolConfig } from '@/tools/types';
 import { FileText } from 'lucide-react';
 import { WordCounter } from './index';
 
