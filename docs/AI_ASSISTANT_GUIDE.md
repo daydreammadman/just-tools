@@ -55,6 +55,10 @@ src/
    - 所有函数必须有返回类型标注
    - 禁止使用 `any` 类型
    - Props 必须定义接口
+   - **⚠️ 必须使用 `import type` 导入类型**（项目启用了 `verbatimModuleSyntax`）
+     - ✅ `import type { ToolConfig } from '@/tools/types';`
+     - ✅ `import type { FC } from 'react';`
+     - ❌ `import { ToolConfig } from '@/tools/types';` （类型不能用普通 import）
 
 4. **工具必须独立**
    - 每个工具是独立的模块
@@ -95,7 +99,7 @@ src/tools/[tool-id]/
 
 ```typescript
 import type { LucideProps } from 'lucide-react';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export type ToolCategory =
   | 'text'          // 文本处理
@@ -122,7 +126,7 @@ export interface ToolConfig {
 ### 步骤 4: 创建工具配置 (config.ts)
 
 ```typescript
-import { ToolConfig } from '@/tools/types';
+import type { ToolConfig } from '@/tools/types';
 import { IconName } from 'lucide-react'; // 选择合适的图标
 import { ComponentName } from './index';
 
@@ -144,7 +148,8 @@ export const toolConfig: ToolConfig = {
 **必须遵循的组件模板：**
 
 ```tsx
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -289,7 +294,7 @@ export function validateInput(input: string): boolean {
 **在 `src/tools/index.ts` 中：**
 
 ```typescript
-import { ToolConfig } from './types';
+import type { ToolConfig } from './types';
 import { toolConfig as newTool } from './new-tool/config';
 // ... 导入其他工具
 
@@ -631,7 +636,7 @@ type ToolCategory = string;
 
 ```typescript
 // config.ts
-import { ToolConfig } from '@/tools/types';
+import type { ToolConfig } from '@/tools/types';
 import { Type } from 'lucide-react';
 import { CaseConverter } from './index';
 
@@ -669,7 +674,8 @@ export function toTitleCase(text: string): string {
 
 ```tsx
 // index.tsx
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
