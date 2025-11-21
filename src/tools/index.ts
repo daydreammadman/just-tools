@@ -18,6 +18,7 @@ import { toolConfig as jsonFormatterConfig } from './json-formatter/config';
 import { toolConfig as IpLookupConfig } from './ip-lookup/config';
 import { toolConfig as wordCounterConfig } from './word-counter/config';
 import { toolConfig as imageConverterConfig } from './image-converter/config';
+import { toolConfig as imageAnalyzerConfig } from './image-analyzer/config';
 /**
  * 工具注册表
  * 新增工具时在此数组中添加工具配置
@@ -27,6 +28,7 @@ export const allTools: ToolConfig[] = [
   IpLookupConfig,
   wordCounterConfig,
   imageConverterConfig,
+  imageAnalyzerConfig,
 ];
 
 /**
