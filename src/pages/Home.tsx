@@ -63,7 +63,7 @@ export const Home: FC = () => {
                   <button
                     key={tool.id}
                     onClick={() => navigate(`/tool/${tool.id}`)}
-                    className="group relative overflow-hidden rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md text-left"
+                    className="group relative overflow-hidden rounded-lg border bg-card p-6 shadow-sm transition-all hover:shadow-md text-left cursor-pointer"
                   >
                     {/* 工具图标 */}
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
