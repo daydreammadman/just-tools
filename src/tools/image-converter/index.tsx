@@ -1,5 +1,5 @@
 import type { FC, ChangeEvent } from 'react';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Upload, Download, X, Image as ImageIcon, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -23,7 +23,9 @@ export const ImageConverter: FC = () => {
   const [quality, setQuality] = useState<number>(92);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [isConverting, setIsConverting] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   // 格式选项
   const formats: { value: ImageFormat; label: string; description: string }[] = [
@@ -35,11 +37,8 @@ export const ImageConverter: FC = () => {
     { value: 'ico', label: 'ICO', description: '图标格式' },
   ];
 
-  // 处理文件选择
-  const handleFileChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  // 处理文件加载 (统一处理逻辑)
+  const processImageFile = useCallback(async (file: File) => {
     // 验证文件
     const validation = validateImageFile(file);
     if (!validation.valid) {
@@ -57,6 +56,13 @@ export const ImageConverter: FC = () => {
       toast.error(error instanceof Error ? error.message : '加载图片失败');
     }
   }, []);
+
+  // 处理文件选择
+  const handleFileChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    await processImageFile(file);
+  }, [processImageFile]);
 
   // 处理转换
   const handleConvert = useCallback(async () => {
@@ -115,14 +121,91 @@ export const ImageConverter: FC = () => {
     fileInputRef.current?.click();
   }, []);
 
+  // 处理拖拽进入
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }, []);
+
+  // 处理拖拽经过
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  // 处理拖拽离开
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  }, []);
+
+  // 处理文件放下
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      await processImageFile(files[0]);
+    }
+  }, [processImageFile]);
+
+  // 添加全局粘贴监听
+  useEffect(() => {
+    const handleGlobalPaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.type.startsWith('image/')) {
+          e.preventDefault();
+          const file = item.getAsFile();
+          if (file) {
+            processImageFile(file);
+            break;
+          }
+        }
+      }
+    };
+
+    document.addEventListener('paste', handleGlobalPaste);
+    return () => {
+      document.removeEventListener('paste', handleGlobalPaste);
+    };
+  }, [processImageFile]);
+
   return (
-    <div className="container mx-auto">
+    <div
+      ref={dropZoneRef}
+      className="container mx-auto"
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      {/* 拖拽遮罩层 */}
+      {isDragging && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm pointer-events-none"
+        >
+          <div className="rounded-lg border-2 border-dashed border-primary bg-background/90 p-12 text-center shadow-lg">
+            <Upload className="mx-auto h-16 w-16 text-primary mb-4" />
+            <p className="text-xl font-semibold">释放以上传图片</p>
+            <p className="mt-2 text-sm text-muted-foreground">支持所有常见图片格式</p>
+          </div>
+        </div>
+      )}
+
       <div className="rounded-lg">
         {/* 头部 */}
         <div className="border-b p-4">
           <h1 className="text-xl font-semibold">图片格式转换</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            支持 PNG、JPEG、WebP、GIF、BMP、ICO 等格式互转
+            支持 PNG、JPEG、WebP、GIF、BMP、ICO 等格式互转 (支持拖拽/粘贴/点击上传)
           </p>
         </div>
 
@@ -316,9 +399,11 @@ export const ImageConverter: FC = () => {
             <div className="rounded-full bg-muted p-6 mb-4">
               <Upload className="h-12 w-12 text-muted-foreground" />
             </div>
-            <h3 className="text-lg font-semibold mb-2">上传图片开始转换</h3>
+            <h3 className="text-lg font-semibold mb-2">拖拽、粘贴或点击上传图片</h3>
             <p className="text-sm text-muted-foreground mb-4 max-w-md">
               支持 PNG、JPEG、WebP、GIF、BMP、ICO 等常见图片格式
+              <br />
+              拖拽文件到页面、使用 Ctrl+V 粘贴，或点击按钮选择
               <br />
               文件大小限制: 10MB
             </p>
