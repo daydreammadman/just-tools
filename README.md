@@ -217,7 +217,7 @@ git commit -m "docs(readme): update installation steps"
 
 1. Fork 本仓库
 2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 遵循开发规范编写代码
+3. 遵循开发规范编写代码（参考 [开发规范文档](./docs/DEVELOPMENT.md)）
 4. 提交更改 (`git commit -m 'feat: add some AmazingFeature'`)
 5. 推送到分支 (`git push origin feature/AmazingFeature`)
 6. 开启 Pull Request
