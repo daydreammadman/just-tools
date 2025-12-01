@@ -33,3 +33,5 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+build-and-push.sh
