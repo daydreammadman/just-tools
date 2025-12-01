@@ -10,13 +10,17 @@ version: '3.8'
 # 1. Make sure you have Docker and Docker Compose installed.
 # 2. Save this file as 'docker-compose.yml'.
 # 3. Run 'docker-compose up -d' to start the application.
-# 4. Access the application at http://localhost:8000.
+#
+# How to Update:
+# 1. docker-compose pull
+# 2. docker-compose up -d
+# 3. docker image prune -f
 # ==============================================================================
 
 services:
   app:
     # Replace with your actual public image path from Alibaba Cloud ACR or other registries
-    image: registry.cn-hangzhou.aliyuncs.com/your-namespace/just-tools:latest
+    image: crpi-t61gwpgf50g1a2tn.cn-hangzhou.personal.cr.aliyuncs.com/tomoto/just-tools:latest
     container_name: just-tools-app
     ports:
       - "8000:8000"
