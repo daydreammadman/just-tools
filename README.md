@@ -228,9 +228,9 @@ git commit -m "docs(readme): update installation steps"
 
 ## 联系方式
 
-- 项目主页: [GitHub](https://github.com/yourusername/just-tools)
-- 问题反馈: [Issues](https://github.com/yourusername/just-tools/issues)
-- 讨论交流: [Discussions](https://github.com/yourusername/just-tools/discussions)
+- 项目主页: [GitHub](https://github.com/daydreammadman/just-tools)
+- 问题反馈: [Issues](https://github.com/daydreammadman/just-tools/issues)
+- 讨论交流: [Discussions](https://github.com/daydreammadman/just-tools/discussions)
 
 ## 致谢
 

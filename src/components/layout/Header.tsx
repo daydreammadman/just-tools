@@ -129,7 +129,7 @@ export const Header = ({
           {/* GitHub 链接 */}
           <Button variant="ghost" size="icon" asChild>
             <a
-              href="https://github.com/yourusername/just-tools"
+              href="https://github.com/daydreammadman/just-tools"
               target="_blank"
               rel="noopener noreferrer"
             >

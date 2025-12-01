@@ -5,7 +5,9 @@ FastAPI 后端服务，用于获取客户端网络信息
 
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import httpx
+import os
 
 app = FastAPI(
     title="Just Tools API",
@@ -95,9 +97,25 @@ async def health_check():
     return {"status": "ok"}
 
 
-# Mount the static files directory
-# This should be after all API routes
-app.mount("/", StaticFiles(directory="dist", html=True), name="static")
+# Mount the static files directory (without html=True to prevent auto-serving)
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
+
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    """
+    Catch-all 路由：处理所有未匹配的请求
+    如果是静态文件存在则返回，否则返回 index.html（用于 SPA 路由）
+    """
+    # 构建文件路径
+    file_path = os.path.join("dist", full_path)
+    
+    # 如果文件存在，直接返回
+    if os.path.isfile(file_path):
+        return FileResponse(file_path)
+    
+    # 否则返回 index.html（SPA fallback）
+    return FileResponse("dist/index.html")
 
 if __name__ == "__main__":
     import uvicorn
