@@ -2,7 +2,6 @@
  * File X-Ray (文件字节透视镜) - 主组件
  */
 
-import type { FC } from 'react';
 import { useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,7 @@ import { HexViewer } from './components/HexViewer';
 import { ByteInspector } from './components/ByteInspector';
 import { FileAnalysisDisplay } from './components/FileAnalysisDisplay';
 
-export const FileHexViewer: FC = () => {
+export const FileHexViewer = () => {
   const [file, setFile] = useState<File | null>(null);
   const [buffer, setBuffer] = useState<ArrayBuffer | null>(null);
   const [analysis, setAnalysis] = useState<FileAnalysis | null>(null);

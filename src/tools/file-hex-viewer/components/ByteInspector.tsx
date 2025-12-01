@@ -2,7 +2,6 @@
  * Byte Inspector 组件 - 字节数据检查器
  */
 
-import type { FC } from 'react';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { ByteInfo } from '../types';
@@ -11,7 +10,7 @@ interface ByteInspectorProps {
   byteInfo: ByteInfo | null;
 }
 
-export const ByteInspector: FC<ByteInspectorProps> = ({ byteInfo }) => {
+export const ByteInspector = ({ byteInfo }: ByteInspectorProps) => {
   if (!byteInfo) {
     return (
       <div className="text-muted-foreground text-center py-8 text-sm">

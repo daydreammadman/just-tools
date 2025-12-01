@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { AlgorithmCategory, OperationDirection } from './types';
 import { useState, useCallback, useEffect } from 'react';
 import {
@@ -30,7 +29,7 @@ import {
 /**
  * 分类图标映射
  */
-const categoryIcons: Record<AlgorithmCategory, FC<{ className?: string }>> = {
+const categoryIcons: Record<AlgorithmCategory, React.ComponentType<{ className?: string }>> = {
   hash: Hash,
   encoding: FileCode,
   cipher: Lock,
@@ -50,7 +49,7 @@ const scrollbarStyles = cn(
 /**
  * 加密解密工具主组件
  */
-export const CryptoTool: FC = () => {
+export const CryptoTool = () => {
   // 状态管理
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('base64');
   const [direction, setDirection] = useState<OperationDirection>('encode');

@@ -1,4 +1,4 @@
-import type { FC, ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Upload, Download, X, Image as ImageIcon, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ import {
 /**
  * 图片格式转换工具组件
  */
-export const ImageConverter: FC = () => {
+export const ImageConverter = () => {
   const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
   const [targetFormat, setTargetFormat] = useState<ImageFormat>('png');
   const [quality, setQuality] = useState<number>(92);

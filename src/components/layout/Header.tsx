@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu, Search, ArrowLeft, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,12 +14,12 @@ interface HeaderProps {
 /**
  * 顶部导航栏组件
  */
-export const Header: FC<HeaderProps> = ({
+export const Header = ({
   onMenuClick,
   onSearch,
   searchQuery = '',
   showBackButton = false,
-}) => {
+}: HeaderProps) => {
   const navigate = useNavigate();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const [showMobileSearch, setShowMobileSearch] = useState(false);

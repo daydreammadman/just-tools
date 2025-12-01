@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Copy, Check, AlertCircle, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -15,7 +15,7 @@ type Mode = 'format' | 'minify';
 /**
  * JSON 格式化工具组件
  */
-export const JSONFormatter: FC = () => {
+export const JSONFormatter = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState<Mode>('format');

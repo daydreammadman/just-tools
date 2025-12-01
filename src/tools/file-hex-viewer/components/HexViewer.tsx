@@ -2,8 +2,7 @@
  * Hex Viewer 组件 - 经典十六进制查看器（带虚拟滚动优化）
  */
 
-import type { FC } from 'react';
-import { memo, useState, useCallback, useRef, useMemo, useEffect } from 'react';
+import React, { memo, useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import { formatOffset, byteToHex, byteToASCII } from '../utils';
 import type { GhostCharacter } from '../types';
 
@@ -19,13 +18,13 @@ const BYTES_PER_ROW = 16;
 const ROW_HEIGHT = 28;
 const OVERSCAN = 10;
 
-export const HexViewer: FC<HexViewerProps> = memo(({
+export const HexViewer = memo(({
   buffer,
   selectedByte,
   onByteClick,
   ghostCharacters,
   highlightGhosts,
-}) => {
+}: HexViewerProps) => {
   const bytes = useMemo(() => new Uint8Array(buffer), [buffer]);
   const totalRows = Math.ceil(bytes.length / BYTES_PER_ROW);
   const totalHeight = totalRows * ROW_HEIGHT;
@@ -159,7 +158,7 @@ export const HexViewer: FC<HexViewerProps> = memo(({
 
   // 生成可见行数据
   const visibleRows = useMemo(() => {
-    const rows: JSX.Element[] = [];
+    const rows: React.ReactElement[] = [];
     for (let rowIndex = visibleRange.startRow; rowIndex < visibleRange.endRow; rowIndex++) {
       const rowStart = rowIndex * BYTES_PER_ROW;
 

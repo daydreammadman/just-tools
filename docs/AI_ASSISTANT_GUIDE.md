@@ -99,7 +99,7 @@ src/tools/[tool-id]/
 
 ```typescript
 import type { LucideProps } from 'lucide-react';
-import type { FC } from 'react';
+import type { ComponentType } from 'react';
 
 export type ToolCategory =
   | 'text'          // 文本处理
@@ -115,9 +115,9 @@ export interface ToolConfig {
   name: string;                  // 工具中文名称
   description: string;           // 工具描述
   category: ToolCategory;        // 工具分类
-  icon: FC<LucideProps>;         // Lucide 图标组件
+  icon: ComponentType<LucideProps>;         // Lucide 图标组件
   tags: string[];               // 搜索标签
-  component: FC;                // 工具组件
+  component: ComponentType;                // 工具组件
   requiresBackend: boolean;     // 是否需要后端
   version: string;              // 版本号
 }
@@ -148,7 +148,6 @@ export const toolConfig: ToolConfig = {
 **必须遵循的组件模板：**
 
 ```tsx
-import type { FC } from 'react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -161,7 +160,7 @@ interface ToolNameProps {
   // 外部传入的 props（如果有）
 }
 
-export const ToolName: FC<ToolNameProps> = () => {
+export const ToolName = (props: ToolNameProps) => {
   // 1. State 定义
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -674,7 +673,6 @@ export function toTitleCase(text: string): string {
 
 ```tsx
 // index.tsx
-import type { FC } from 'react';
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -683,7 +681,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { toUpperCase, toLowerCase, toTitleCase } from './utils';
 
-export const CaseConverter: FC = () => {
+export const CaseConverter = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 

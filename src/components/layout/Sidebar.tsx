@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,13 +17,13 @@ interface SidebarProps {
  * 侧边栏组件
  * 显示工具分类导航
  */
-export const Sidebar: FC<SidebarProps> = ({
+export const Sidebar = ({
   isOpen = true,
   onClose,
   onToggle,
   selectedCategory = 'all',
   onCategoryChange,
-}) => {
+}: SidebarProps) => {
   const navigate = useNavigate();
   const categories = getAllCategories();
   const toolCounts = getToolCountByCategory();

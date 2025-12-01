@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ import { getToolById } from '@/tools';
 /**
  * 工具详情页
  */
-export const ToolPage: FC = () => {
+export const ToolPage = () => {
   const { toolId } = useParams<{ toolId: string }>();
   const navigate = useNavigate();
 

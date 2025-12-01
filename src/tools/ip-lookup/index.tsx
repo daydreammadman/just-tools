@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -128,7 +127,7 @@ const API_PROVIDERS: ApiProvider[] = [
   }
 ];
 
-export const IpLookupTool: FC = () => {
+export const IpLookupTool = () => {
   const [inputIp, setInputIp] = useState('');
   const [result, setResult] = useState<IpData | null>(null);
   const [isLoading, setIsLoading] = useState(false);

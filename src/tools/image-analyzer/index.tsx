@@ -1,4 +1,4 @@
-import type { FC, ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   Upload,
@@ -34,7 +34,7 @@ interface InfoItemProps {
   className?: string;
 }
 
-const InfoItem: FC<InfoItemProps> = ({ label, value, copyable = false, className }) => {
+const InfoItem = ({ label, value, copyable = false, className }: InfoItemProps) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async (): Promise<void> => {
@@ -76,7 +76,7 @@ const InfoItem: FC<InfoItemProps> = ({ label, value, copyable = false, className
 /**
  * 图片信息分析工具组件
  */
-export const ImageAnalyzer: FC = () => {
+export const ImageAnalyzer = () => {
   const [analysis, setAnalysis] = useState<ImageAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
@@ -182,22 +182,6 @@ export const ImageAnalyzer: FC = () => {
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       await processImageFile(files[0]);
-    }
-  }, [processImageFile]);
-
-  // 处理粘贴事件
-  const handlePaste = useCallback(async (e: React.ClipboardEvent) => {
-    const items = e.clipboardData.items;
-
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      if (item.type.startsWith('image/')) {
-        const file = item.getAsFile();
-        if (file) {
-          await processImageFile(file);
-          break;
-        }
-      }
     }
   }, [processImageFile]);
 

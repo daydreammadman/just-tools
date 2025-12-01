@@ -46,7 +46,7 @@ export async function loadPyodideRuntime(
         }
       };
 
-      script.onerror = (e) => reject(new Error('Failed to load Pyodide script'));
+      script.onerror = () => reject(new Error('Failed to load Pyodide script'));
       document.body.appendChild(script);
     });
   }

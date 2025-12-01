@@ -1,5 +1,5 @@
 import type { LucideProps } from 'lucide-react';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 /**
  * 工具分类枚举

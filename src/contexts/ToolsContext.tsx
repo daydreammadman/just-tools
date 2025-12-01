@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useMemo, ReactNode, FC } from 'react';
+import { createContext, useContext, useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { allTools, getToolsByCategory } from '@/tools';
 import type { ToolCategory, ToolConfig } from '@/tools/types';
 
@@ -13,7 +14,7 @@ interface ToolsContextType {
 
 const ToolsContext = createContext<ToolsContextType | undefined>(undefined);
 
-export const ToolsProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ToolsProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCategory, setSelectedCategory] = useState<ToolCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 

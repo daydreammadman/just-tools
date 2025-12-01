@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import type { FC } from 'react';
 import {
   Card,
   CardContent,
@@ -13,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { countWords, estimateReadingTime } from './utils';
 import type { WordCountResult } from './utils';
-export const WordCounter: FC = () => {
+export const WordCounter = () => {
   const [input, setInput] = useState('');
   const [stats, setStats] = useState<WordCountResult>({
     characters: 0,
@@ -104,7 +103,7 @@ interface StatCardProps {
   value: number | string;
 }
 
-const StatCard: FC<StatCardProps> = ({ label, value }) => {
+const StatCard = ({ label, value }: StatCardProps) => {
   return (
     <div className="rounded-lg border bg-card p-4 text-center">
       <div className="text-2xl font-bold text-foreground">{value}</div>

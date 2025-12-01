@@ -90,7 +90,7 @@ class Service {
 
 ```tsx
 // 标准组件结构
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import type { ToolProps } from './types';
 
@@ -103,7 +103,7 @@ interface ComponentProps {
  * 组件功能描述
  * @param props - 组件属性
  */
-export const Component: FC<ComponentProps> = ({ title, onSubmit }) => {
+export const Component = ({ title, onSubmit }: ComponentProps) => {
   // 1. Hooks
   const [state, setState] = useState('');
 
@@ -143,8 +143,8 @@ export const ToolCard = () => {};
 // tools/ip-lookup/index.tsx
 export { IPLookup } from './IPLookup';
 
-// ✅ 使用 FC 类型
-const Component: FC<Props> = () => {};
+// ✅ 使用直接 props 类型注解
+const Component = (props: Props) => {};
 
 // ❌ 避免默认导出（除了 index.tsx）
 export default Component; // 不推荐
@@ -350,7 +350,7 @@ export function formatTimestamp(
  *   onClick={() => navigate(`/tools/${tool.id}`)}
  * />
  */
-export const ToolCard: FC<ToolCardProps> = ({ tool, onClick }) => {
+export const ToolCard = ({ tool, onClick }: ToolCardProps) => {
   // 实现
 };
 ```

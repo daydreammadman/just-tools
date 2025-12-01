@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,7 @@ import { Loader2, Play, Trash2, RefreshCw } from 'lucide-react';
 import { loadPyodideRuntime, DEFAULT_CODE } from './utils';
 import type { PyodideInterface } from './types';
 
-export const PythonPlayground: FC = () => {
+export const PythonPlayground = () => {
   // State
   const [code, setCode] = useState(DEFAULT_CODE);
   const [output, setOutput] = useState<string[]>([]);

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { SystemInfo, NetworkInfo, HardwareInfo, BrowserInfo, StorageInfo } from './types';
 import { useState, useEffect, useCallback } from 'react';
 import {
@@ -55,7 +54,7 @@ interface InfoItemProps {
   mono?: boolean;
 }
 
-const InfoItem: FC<InfoItemProps> = ({ label, value, highlight = false, mono = false }) => {
+const InfoItem = ({ label, value, highlight = false, mono = false }: InfoItemProps) => {
   const displayValue = (): string => {
     if (value === null || value === undefined) return '不支持';
     if (typeof value === 'boolean') return value ? '是' : '否';
@@ -96,7 +95,7 @@ interface PrivacyTipIconProps {
   tipKey: string;
 }
 
-const PrivacyTipIcon: FC<PrivacyTipIconProps> = ({ tipKey }) => {
+const PrivacyTipIcon = ({ tipKey }: PrivacyTipIconProps) => {
   const tip = PRIVACY_TIPS[tipKey];
   if (!tip) return null;
 
@@ -128,7 +127,7 @@ interface NetworkCardProps {
   isLoading: boolean;
 }
 
-const NetworkCard: FC<NetworkCardProps> = ({ data, isLoading }) => (
+const NetworkCard = ({ data, isLoading }: NetworkCardProps) => (
   <Card>
     <CardHeader className="pb-3">
       <div className="flex items-center justify-between">
@@ -182,7 +181,7 @@ interface HardwareCardProps {
   data: HardwareInfo;
 }
 
-const HardwareCard: FC<HardwareCardProps> = ({ data }) => (
+const HardwareCard = ({ data }: HardwareCardProps) => (
   <Card>
     <CardHeader className="pb-3">
       <div className="flex items-center justify-between">
@@ -286,7 +285,7 @@ interface BrowserCardProps {
   data: BrowserInfo;
 }
 
-const BrowserCard: FC<BrowserCardProps> = ({ data }) => (
+const BrowserCard = ({ data }: BrowserCardProps) => (
   <Card>
     <CardHeader className="pb-3">
       <div className="flex items-center justify-between">
@@ -343,7 +342,7 @@ interface StorageKeyBadgeProps {
   storageType: string;
 }
 
-const StorageKeyBadge: FC<StorageKeyBadgeProps> = ({ storageKey, value, storageType }) => {
+const StorageKeyBadge = ({ storageKey, value, storageType }: StorageKeyBadgeProps) => {
   // 截断过长的值
   const truncateValue = (val: string, maxLength: number = 100): string => {
     if (val.length <= maxLength) return val;
@@ -389,7 +388,7 @@ interface StorageCardProps {
   data: StorageInfo;
 }
 
-const StorageCard: FC<StorageCardProps> = ({ data }) => (
+const StorageCard = ({ data }: StorageCardProps) => (
   <Card>
     <CardHeader className="pb-3">
       <div className="flex items-center justify-between">
@@ -505,7 +504,7 @@ const StorageCard: FC<StorageCardProps> = ({ data }) => (
 /**
  * 系统环境探针主组件
  */
-export const SystemInspector: FC = () => {
+export const SystemInspector = () => {
   const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [networkLoading, setNetworkLoading] = useState(true);

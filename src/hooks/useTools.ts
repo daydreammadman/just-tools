@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { allTools, getToolsByCategory, searchTools } from '@/tools';
+import { allTools, getToolsByCategory } from '@/tools';
 import type { ToolCategory, ToolConfig } from '@/tools/types';
 
 /**

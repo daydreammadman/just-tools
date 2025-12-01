@@ -642,7 +642,7 @@ export const algorithms: AlgorithmRegistry = {
     category: 'hash',
     supportsDecode: false,
     requiresKey: false,
-    encode: (input, options) => {
+    encode: (input) => {
       const result = md5(input);
       return { success: true, output: result };
     },
@@ -656,9 +656,8 @@ export const algorithms: AlgorithmRegistry = {
     requiresKey: false,
     encode: (input, options) => {
       // 包装异步函数为同步返回
-      let result: ProcessResult = { success: false, output: '', error: '处理中...' };
-      computeHash(input, 'SHA-1', options?.outputFormat || 'hex').then((r) => {
-        result = r;
+      computeHash(input, 'SHA-1', options?.outputFormat || 'hex').then(() => {
+        // result processed async
       });
       // 由于需要同步返回，这里使用特殊处理
       return { success: true, output: '', error: 'async' };

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,7 +33,7 @@ import {
   formatDate,
 } from './utils';
 
-export const TimestampConverter: FC = () => {
+export const TimestampConverter = () => {
   // 时间戳转日期
   const [timestampInput, setTimestampInput] = useState('');
   const [timestampUnit, setTimestampUnit] = useState<TimestampUnit>('milliseconds');

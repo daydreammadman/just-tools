@@ -86,7 +86,7 @@ export const toolConfig: ToolConfig = {
 #### 纯前端工具模板
 
 ```tsx
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -99,7 +99,7 @@ interface YourToolProps {
   // 可选的外部传入参数
 }
 
-export const YourToolComponent: FC<YourToolProps> = () => {
+export const YourToolComponent = (props: YourToolProps) => {
   // 状态管理
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -223,7 +223,7 @@ export const YourToolComponent: FC<YourToolProps> = () => {
 #### 需要后端的工具模板
 
 ```tsx
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -236,7 +236,7 @@ interface APIResponse {
   error?: string;
 }
 
-export const YourToolComponent: FC = () => {
+export const YourToolComponent = () => {
   const [input, setInput] = useState('');
   const [result, setResult] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -416,8 +416,8 @@ export function searchTools(query: string): ToolConfig[] {
 在 `src/tools/types.ts` 中定义通用类型（如果还没有）：
 
 ```typescript
-import { LucideIcon } from 'lucide-react';
-import { FC } from 'react';
+import type { LucideIcon } from 'lucide-react';
+import type { ComponentType } from 'react';
 
 export type ToolCategory =
   | 'text'
@@ -434,7 +434,7 @@ export interface ToolConfig {
   category: ToolCategory;
   icon: LucideIcon;
   tags: string[];
-  component: FC;
+  component: ComponentType;
   requiresBackend: boolean;
   version: string;
   author?: string;
@@ -492,7 +492,7 @@ export const toolConfig: ToolConfig = {
 ### 3. index.tsx
 
 ```tsx
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -501,7 +501,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { formatTimestamp, parseDate, getCurrentTimestamp } from './utils';
 import { toast } from 'sonner';
 
-export const TimestampConverter: FC = () => {
+export const TimestampConverter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [dateString, setDateString] = useState('');
   const [currentTime, setCurrentTime] = useState(getCurrentTimestamp());

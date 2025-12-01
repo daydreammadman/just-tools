@@ -2,7 +2,6 @@
  * File Analysis 组件 - 显示文件分析结果
  */
 
-import type { FC } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,12 +15,12 @@ interface FileAnalysisDisplayProps {
   onHighlightGhosts: () => void;
 }
 
-export const FileAnalysisDisplay: FC<FileAnalysisDisplayProps> = ({
+export const FileAnalysisDisplay = ({
   analysis,
   fileName,
   fileSize,
   onHighlightGhosts,
-}) => {
+}: FileAnalysisDisplayProps) => {
   return (
     <div className="space-y-4">
       {/* 文件信息 */}

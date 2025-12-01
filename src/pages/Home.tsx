@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToolsContext } from '@/contexts/ToolsContext';
 import { getCategoryById } from '@/tools';
@@ -6,7 +5,7 @@ import { getCategoryById } from '@/tools';
 /**
  * 首页 - 工具列表
  */
-export const Home: FC = () => {
+export const Home = () => {
   const navigate = useNavigate();
   const { filteredTools, selectedCategory } = useToolsContext();
 

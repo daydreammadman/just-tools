@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { Button } from '@/components/ui/button';
 /**
  * 404 页面
  */
-export const NotFound: FC = () => {
+export const NotFound = () => {
   const navigate = useNavigate();
 
   return (
