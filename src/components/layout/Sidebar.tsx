@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getAllCategories, getToolCountByCategory } from '@/tools';
 import type { ToolCategory } from '@/tools/types';
+import { version } from '../../../package.json';
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -194,7 +195,7 @@ export const Sidebar = ({
                 'rounded-full bg-primary/10 px-2 py-0.5 font-semibold text-primary',
                 !isOpen && 'md:hidden'
               )}>
-                v1.0.0
+                v{version}
               </span>
               {/* 桌面端收起/展开按钮 */}
               <button
