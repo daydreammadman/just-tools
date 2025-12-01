@@ -1,4 +1,5 @@
-import { FC, useState, useEffect } from 'react';
+import type { FC } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,7 +41,7 @@ interface ApiProvider {
   name: string;
   url: (ip: string) => string;
   // 将不同 API 的返回格式统一映射为 IpData
-  transform: (data: any) => IpData;
+  transform: (data: Record<string, any>) => IpData;
 }
 
 // 超时时间配置（毫秒）
@@ -174,13 +175,11 @@ export const IpLookupTool: FC = () => {
 
         const url = provider.url(ip);
         const providerStartTime = Date.now();
-        console.log(`[${provider.name}] 开始请求...`);
         setCurrentProvider(`正在尝试 ${provider.name}...`);
 
         const response = await fetchWithTimeout(url, REQUEST_TIMEOUT);
 
         const elapsed = Date.now() - providerStartTime;
-        console.log(`[${provider.name}] 响应成功，耗时 ${elapsed}ms`);
 
         if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
 
