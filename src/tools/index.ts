@@ -3,13 +3,13 @@ import type {
   ToolCategory,
   CategoryInfo,
 } from './types';
-import { 
-  Type, 
-  Globe, 
-  RefreshCw, 
-  Lock, 
+import {
+  Type,
+  Globe,
+  RefreshCw,
+  Lock,
   Code2, // 建议用 Code2，比 Code 好看一点
-  Wrench, 
+  Wrench,
   Image, // 新增
 
 } from 'lucide-react';
@@ -20,6 +20,11 @@ import { toolConfig as wordCounterConfig } from './word-counter/config';
 import { toolConfig as imageConverterConfig } from './image-converter/config';
 import { toolConfig as imageAnalyzerConfig } from './image-analyzer/config';
 import { toolConfig as cryptoToolConfig } from './crypto-tool/config';
+import { toolConfig as systemInspectorConfig } from './system-inspector/config';
+import { toolConfig as fileHexViewerConfig } from './file-hex-viewer/config';
+import { toolConfig as timestampConverterConfig } from './timestamp-converter/config';
+import { toolConfig as imageResizerConfig } from './image-resizer/config';
+
 /**
  * 工具注册表
  * 新增工具时在此数组中添加工具配置
@@ -31,6 +36,10 @@ export const allTools: ToolConfig[] = [
   imageConverterConfig,
   imageAnalyzerConfig,
   cryptoToolConfig,
+  systemInspectorConfig,
+  fileHexViewerConfig,
+  timestampConverterConfig,
+  imageResizerConfig,
 ];
 
 /**
