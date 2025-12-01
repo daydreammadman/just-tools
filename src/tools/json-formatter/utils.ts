@@ -23,6 +23,56 @@ export interface FormatResult {
 }
 
 /**
+ * 预处理输入：提取有效的 JSON 内容
+ * 1. 移除前导的无关文本（如 AI 回复中的说明文字）
+ * 2. 移除 markdown 代码块标记（```json ... ```）
+ * 3. 将字符串形式的转义序列转换为真实换行符
+ * 4. 规范化换行符
+ */
+export function preprocessInput(input: string): string {
+  if (!input) return input;
+
+  let processed = input;
+
+  // 1. 移除 markdown 代码块标记
+  // 匹配 ```json 或 ``` 开头，``` 结尾的代码块
+  processed = processed.replace(/^```(?:json|javascript|js)?\s*\n?/i, '');
+  processed = processed.replace(/\n?```\s*$/i, '');
+
+  // 2. 将字符串形式的 \n 转换为真实换行符
+  // 但要小心，只转换那些真的是字符串字面量 "\n" 而不是实际的换行符
+  // 检测是否包含字面量 \n（通过检查是否有连续的反斜杠和n）
+  if (processed.includes('\\n')) {
+    // 将 \\n 转换为实际的换行符
+    processed = processed.replace(/\\n/g, '\n');
+    // 同样处理其他转义字符
+    processed = processed.replace(/\\r/g, '\r');
+    processed = processed.replace(/\\t/g, '\t');
+    processed = processed.replace(/\\"/g, '"');
+    processed = processed.replace(/\\\\/g, '\\');
+  }
+
+  // 3. 规范化换行符：将 \r\n 和 \r 统一转换为 \n
+  processed = processed.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // 4. 查找第一个 JSON 起始字符的位置
+  const jsonStartMatch = processed.match(/[{[]/);
+  if (jsonStartMatch && jsonStartMatch.index !== undefined && jsonStartMatch.index > 0) {
+    // 从第一个 { 或 [ 开始截取
+    processed = processed.substring(jsonStartMatch.index);
+  }
+
+  // 5. 查找最后一个 JSON 结束字符的位置
+  const jsonEndMatch = processed.match(/[}\]](?=[^}\]]*$)/);
+  if (jsonEndMatch && jsonEndMatch.index !== undefined) {
+    // 截取到最后一个 } 或 ] 结束
+    processed = processed.substring(0, jsonEndMatch.index + 1);
+  }
+
+  return processed.trim();
+}
+
+/**
  * 解析 JSON 字符串
  */
 export function parseJSON(input: string): JSONParseResult {
@@ -33,12 +83,22 @@ export function parseJSON(input: string): JSONParseResult {
     };
   }
 
+  // 预处理输入
+  const processedInput = preprocessInput(input);
+
+  if (!processedInput) {
+    return {
+      success: false,
+      error: { message: '未找到有效的 JSON 内容' },
+    };
+  }
+
   try {
-    const data = JSON.parse(input);
+    const data = JSON.parse(processedInput);
     return { success: true, data };
   } catch (e) {
     const error = e as SyntaxError;
-    const errorInfo = extractErrorPosition(error.message, input);
+    const errorInfo = extractErrorPosition(error.message, processedInput);
 
     return {
       success: false,
@@ -104,7 +164,7 @@ export function formatJSON(input: string, indent: IndentSize = 2): FormatResult 
   try {
     const formatted = JSON.stringify(parseResult.data, null, indent);
     return { success: true, output: formatted };
-  } catch (e) {
+  } catch {
     return {
       success: false,
       output: '',
@@ -130,7 +190,7 @@ export function minifyJSON(input: string): FormatResult {
   try {
     const minified = JSON.stringify(parseResult.data);
     return { success: true, output: minified };
-  } catch (e) {
+  } catch {
     return {
       success: false,
       output: '',
