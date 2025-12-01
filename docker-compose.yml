@@ -1,0 +1,23 @@
+version: '3.8'
+
+# ==============================================================================
+# Docker Compose for End Users (Deployment from pre-built image)
+# ==============================================================================
+# This file is intended for users who want to quickly deploy the application
+# using a pre-built image from a container registry.
+#
+# Usage:
+# 1. Make sure you have Docker and Docker Compose installed.
+# 2. Save this file as 'docker-compose.yml'.
+# 3. Run 'docker-compose up -d' to start the application.
+# 4. Access the application at http://localhost:8000.
+# ==============================================================================
+
+services:
+  app:
+    # Replace with your actual public image path from Alibaba Cloud ACR or other registries
+    image: registry.cn-hangzhou.aliyuncs.com/your-namespace/just-tools:latest
+    container_name: just-tools-app
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

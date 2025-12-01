@@ -4,22 +4,13 @@ FastAPI 后端服务，用于获取客户端网络信息
 """
 
 from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import httpx
 
 app = FastAPI(
     title="Just Tools API",
     description="后端 API 服务",
     version="1.0.0"
-)
-
-# CORS 配置
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
 )
 
 # 需要排除的敏感 Headers
@@ -103,6 +94,10 @@ async def health_check():
     """健康检查端点"""
     return {"status": "ok"}
 
+
+# Mount the static files directory
+# This should be after all API routes
+app.mount("/", StaticFiles(directory="dist", html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
